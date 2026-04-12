@@ -241,9 +241,9 @@ lsof -i :8080  # Kafka UI
 lsof -i :8081  # Schema Registry
 ```
 
-### 🧪 Testing
-Running Tests
+## 🧪 Testing
 
+```bash
 # Run all tests with verbose output
 pytest tests/ -v
 
@@ -251,10 +251,7 @@ pytest tests/ -v
 pytest tests/ -v --cov=src/fraud_detection --cov-report=html
 
 # Run specific test file
-pytest tests/test_rules_engine.py -v
+pytest tests/test_fraud_detection.py -v
 
-# Run integration tests only
-pytest tests/test_integration.py -v
-
-<img width="1505" height="515" alt="Image" src="https://github.com/user-attachments/assets/750718a8-6534-4c56-8df5-c9c5f05ab0ce" />
+<img width="1505" height="515" alt="Test Results" src="https://github.com/user-attachments/assets/750718a8-6534-4c56-8df5-c9c5f05ab0ce" /> ```
 
