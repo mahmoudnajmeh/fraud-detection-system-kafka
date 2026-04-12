@@ -239,7 +239,7 @@ Port conflicts:
 lsof -i :9092  # Kafka
 lsof -i :8080  # Kafka UI
 lsof -i :8081  # Schema Registry
-,,,
+```
 
 ### 🧪 Testing
 Running Tests
