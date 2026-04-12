@@ -177,20 +177,7 @@ FRAUD-DETECTION-SYSTEM/
 ├── pyproject.toml
 ├── read_alerts.py
 ├── README.md
-└── uv.lock                     
-
-### 🧪 Testing
-Running Tests
-
-# Run all tests with verbose output
-pytest tests/ -v
-
-# Run with coverage report
-pytest tests/ -v --cov=src/fraud_detection --cov-report=html
-
-# Run specific test file
-pytest tests/test_rules_engine.py -v
-
+└── uv.lock                
 
 ###🔍 Troubleshooting
 Common Issues and Solutions
@@ -252,4 +239,22 @@ Port conflicts:
 lsof -i :9092  # Kafka
 lsof -i :8080  # Kafka UI
 lsof -i :8081  # Schema Registry
+,,,
+
+### 🧪 Testing
+Running Tests
+
+# Run all tests with verbose output
+pytest tests/ -v
+
+# Run with coverage report
+pytest tests/ -v --cov=src/fraud_detection --cov-report=html
+
+# Run specific test file
+pytest tests/test_rules_engine.py -v
+
+# Run integration tests only
+pytest tests/test_integration.py -v
+
+<img width="1505" height="515" alt="Image" src="https://github.com/user-attachments/assets/750718a8-6534-4c56-8df5-c9c5f05ab0ce" />
 
