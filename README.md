@@ -4,18 +4,17 @@ A real-time fraud detection system built with Apache Kafka, featuring dual-forma
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Quick Start](#quick-start)
-- [Usage](#usage)
-- [System Components](#system-components)
-- [Fraud Detection Rules](#fraud-detection-rules)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
-- [Testing](#testing)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
+- [Overview](#-overview)
+- [Features](#-features)
+- [Architecture](#-architecture)
+- [Quick Start](#-quick-start)
+- [Usage](#-usage)
+- [System Components](#-system-components)
+- [Fraud Detection Rules](#-fraud-detection-rules)
+- [Configuration](#-configuration)
+- [Project Structure](#-project-structure)
+- [Testing](#-testing)
+- [Troubleshooting](#-troubleshooting)
 
 ## 🎯 Overview
 
