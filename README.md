@@ -57,27 +57,27 @@ The Fraud Detection System processes e-commerce transactions in real-time, apply
 
 ### System Architecture Diagram
 
-![System Architecture Diagram](docs/diagrams/system-architecture-diagram.png)
+![System Architecture Diagram] <img width="10016" height="4613" alt="Image" src="https://github.com/user-attachments/assets/db5fd6a0-f02c-4028-9028-3e5db1b9b336" />
 
 ### Data Flow Sequence Diagram
 
-![Data Flow Sequence Diagram](docs/diagrams/data-flow-sequence-diagram.png)
+![Data Flow Sequence Diagram] <img width="5601" height="5365" alt="Image" src="https://github.com/user-attachments/assets/9095546e-f89a-40ff-98de-7c53db330968" />
 
 ### Fraud Detection Rules Flow
 
-![Fraud Detection Rules Flow](docs/diagrams/fraud-detection-rules-flow.png)
+![Fraud Detection Rules Flow] <img width="5609" height="8854" alt="Image" src="https://github.com/user-attachments/assets/d932ff76-231c-4688-94b2-7eafe65558d5" />
 
 ### Component Interaction Diagram
 
-![Component Interaction Diagram](docs/diagrams/component-interaction-diagram.png)
+![Component Interaction Diagram] <img width="4424" height="4408" alt="Image" src="https://github.com/user-attachments/assets/d7fc05e0-fd24-466d-b6be-2e9ab4341878" />
 
 ### State Management Diagram
 
-![State Management Diagram](docs/diagrams/state-management-diagram.png)
+![State Management Diagram] <img width="4909" height="5333" alt="Image" src="https://github.com/user-attachments/assets/34629640-4f9b-45c3-b8e4-6f6acb7b34ea" />
 
 ### Deployment Architecture
 
-![Deployment Architecture](docs/diagrams/deployment-architecture-diagram.png)
+![Deployment Architecture] <img width="7044" height="1815" alt="Image" src="https://github.com/user-attachments/assets/6aa970d2-65f5-4186-ad57-4c9cffc36a0d" />
 
 ## 🚀 Quick Start
 
@@ -194,7 +194,7 @@ pytest tests/test_rules_engine.py -v
 # Run integration tests only
 pytest tests/test_integration.py -v
 
-![test results](test.png)
+![test results] <img width="1505" height="515" alt="Image" src="https://github.com/user-attachments/assets/750718a8-6534-4c56-8df5-c9c5f05ab0ce" />
 
 ###🔍 Troubleshooting
 Common Issues and Solutions
