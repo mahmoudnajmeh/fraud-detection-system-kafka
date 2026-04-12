@@ -57,27 +57,27 @@ The Fraud Detection System processes e-commerce transactions in real-time, apply
 
 ### System Architecture Diagram
 
-![System Architecture Diagram] <img width="10016" height="4613" alt="Image" src="https://github.com/user-attachments/assets/db5fd6a0-f02c-4028-9028-3e5db1b9b336" />
+<img width="10016" height="4613" alt="Image" src="https://github.com/user-attachments/assets/db5fd6a0-f02c-4028-9028-3e5db1b9b336" />
 
 ### Data Flow Sequence Diagram
 
-![Data Flow Sequence Diagram] <img width="5601" height="5365" alt="Image" src="https://github.com/user-attachments/assets/9095546e-f89a-40ff-98de-7c53db330968" />
+<img width="5601" height="5365" alt="Image" src="https://github.com/user-attachments/assets/9095546e-f89a-40ff-98de-7c53db330968" />
 
 ### Fraud Detection Rules Flow
 
-![Fraud Detection Rules Flow] <img width="5609" height="8854" alt="Image" src="https://github.com/user-attachments/assets/d932ff76-231c-4688-94b2-7eafe65558d5" />
+<img width="5609" height="8854" alt="Image" src="https://github.com/user-attachments/assets/d932ff76-231c-4688-94b2-7eafe65558d5" />
 
 ### Component Interaction Diagram
 
-![Component Interaction Diagram] <img width="4424" height="4408" alt="Image" src="https://github.com/user-attachments/assets/d7fc05e0-fd24-466d-b6be-2e9ab4341878" />
+<img width="4424" height="4408" alt="Image" src="https://github.com/user-attachments/assets/d7fc05e0-fd24-466d-b6be-2e9ab4341878" />
 
 ### State Management Diagram
 
-![State Management Diagram] <img width="4909" height="5333" alt="Image" src="https://github.com/user-attachments/assets/34629640-4f9b-45c3-b8e4-6f6acb7b34ea" />
+<img width="4909" height="5333" alt="Image" src="https://github.com/user-attachments/assets/34629640-4f9b-45c3-b8e4-6f6acb7b34ea" />
 
 ### Deployment Architecture
 
-![Deployment Architecture] <img width="7044" height="1815" alt="Image" src="https://github.com/user-attachments/assets/6aa970d2-65f5-4186-ad57-4c9cffc36a0d" />
+<img width="7044" height="1815" alt="Image" src="https://github.com/user-attachments/assets/6aa970d2-65f5-4186-ad57-4c9cffc36a0d" />
 
 ## 🚀 Quick Start
 
@@ -92,8 +92,8 @@ The Fraud Detection System processes e-commerce transactions in real-time, apply
 
 ```bash
 # 1. Clone the repository
-git clone <repository-url>
-cd fraud-detection-system
+git clone https://github.com/MN10101/fraud-detection-system-kafak.git
+cd fraud-detection-system-kafak
 
 # 2. Install dependencies using uv
 uv sync
@@ -115,69 +115,61 @@ python -m fraud_detection.main run --mode all
 fraud-detection-system/
 ├── src/
 │   └── fraud_detection/
-│       ├── __init__.py                    # Package initialization, exports settings and logger
-│       ├── main.py                        # CLI entry point with Click, multiprocessing orchestration
+│       ├── __init__.py                    
+│       ├── main.py                        
 │       ├── config/
-│       │   ├── settings.py                # Pydantic Settings with .env loading, topic names, thresholds
-│       │   └── logger_config.py           # Loguru configuration with rotation, compression, audit log
+│       │   ├── settings.py                
+│       │   └── logger_config.py           
 │       ├── models/
-│       │   └── data_models.py             # Pydantic models: Transaction, UserProfile, FraudAlert
+│       │   └── data_models.py            
 │       ├── producers/
-│       │   ├── transaction_producer.py    # Dual-format transaction generator (Avro + JSON)
-│       │   └── user_profile_producer.py   # User profile generator with risk scoring
+│       │   ├── transaction_producer.py    
+│       │   └── user_profile_producer.py  
 │       ├── consumers/
-│       │   ├── fraud_detector.py          # Main processing consumer with rules engine integration
-│       │   ├── alert_consumer.py          # Real-time Rich UI alert display with statistics
-│       │   └── audit_consumer.py          # Compliance audit logger writing to JSONL files
+│       │   ├── fraud_detector.py          
+│       │   ├── alert_consumer.py         
+│       │   └── audit_consumer.py         
 │       ├── processors/
-│       │   ├── enrichment_processor.py    # Transaction enrichment with user profile data
-│       │   └── fraud_rules_engine.py      # 5-rule fraud detection engine with severity scoring
+│       │   ├── enrichment_processor.py   
+│       │   └── fraud_rules_engine.py      
 │       ├── monitoring/
-│       │   └── kafka_monitor.py           # Kafka cluster health monitor with Rich UI
+│       │   └── kafka_monitor.py           
 │       ├── schemas/
-│       │   ├── transaction.avsc           # Avro schema: transaction_id, user_id, amount, merchant, etc.
-│       │   ├── user_profile.avsc          # Avro schema: user_id, email, risk_score, preferences, etc.
-│       │   └── fraud_alert.avsc           # Avro schema: alert_id, transaction_id, severity, type, etc.
+│       │   ├── transaction.avsc           
+│       │   ├── user_profile.avsc         
+│       │   └── fraud_alert.avsc          
 │       └── utils/
-│           ├── avro_serializer.py         # FastAvro wrapper with schema validation
-│           └── helpers.py                 # JSON serialization, UUID generation, currency formatting
+│           ├── avro_serializer.py         
+│           └── helpers.py                 
 ├── scripts/
-│   └── setup_topics.sh                    # Bash script creating all Kafka topics with configurations
+│   └── setup_topics.sh                   
 ├── tests/
-│   ├── test_producers.py                  # Unit tests for transaction and profile producers
-│   ├── test_consumers.py                  # Unit tests for fraud detector and alert consumer
-│   ├── test_rules_engine.py               # Unit tests for all 5 fraud detection rules
-│   ├── test_models.py                     # Pydantic model validation tests
-│   └── test_integration.py                # End-to-end integration tests
+│   ├── test_producers.py                 
+│   ├── test_consumers.py                  
+│   ├── test_rules_engine.py              
+│   ├── test_models.py                   
+│   └── test_integration.py             
 ├── docs/
-│   ├── diagrams/                          # Architecture and flow diagrams
+│   ├── diagrams/                          
 │   │   ├── system-architecture-diagram.png
 │   │   ├── data-flow-sequence-diagram.png
 │   │   ├── fraud-detection-rules-flow.png
 │   │   ├── component-interaction-diagram.png
 │   │   ├── state-management-diagram.png
 │   │   └── deployment-architecture.png
-│   └── screenshots/                       # UI and monitoring screenshots
-│       ├── brokers.png
-│       ├── consumers.png
-│       ├── fraud-alerts.png
-│       ├── monitor.png
-│       ├── test.png
-│       ├── topic.png
-│       └── transactions.png
-├── logs/                                  # Application logs directory (created at runtime)
-│   ├── app.log                            # Main application log with rotation
-│   ├── error.log                          # Error-only log with extended retention
-│   └── audit/                             # Audit logs in JSONL format
-│       └── YYYY-MM-DD.jsonl               # Daily audit log files
-├── failed_messages/                       # Failed message storage for recovery
-├── docker-compose.yml                     # Kafka, Schema Registry, Kafka UI services
-├── pyproject.toml                         # Project metadata and dependencies (uv compatible)
-├── .env                                   # Environment configuration (create from template)
-├── .gitignore                             # Git ignore rules
-├── test_consumer.py                       # Simple test consumer for verification
-├── LICENSE                                # MIT License
-└── README.md                              # This file
+│   └── screenshots/                            
+├── logs/                                  
+│   ├── app.log                           
+│   ├── error.log                          
+│   └── audit/                            
+│       └── YYYY-MM-DD.jsonl            
+├── failed_messages/                       
+├── docker-compose.yml                     
+├── pyproject.toml                        
+├── .env                                   
+├── .gitignore                            
+├── test_consumer.py                                                   
+└── README.md                          
 
 ### 🧪 Testing
 Running Tests
@@ -194,7 +186,7 @@ pytest tests/test_rules_engine.py -v
 # Run integration tests only
 pytest tests/test_integration.py -v
 
-![test results] <img width="1505" height="515" alt="Image" src="https://github.com/user-attachments/assets/750718a8-6534-4c56-8df5-c9c5f05ab0ce" />
+<img width="1505" height="515" alt="Image" src="https://github.com/user-attachments/assets/750718a8-6534-4c56-8df5-c9c5f05ab0ce" />
 
 ###🔍 Troubleshooting
 Common Issues and Solutions
