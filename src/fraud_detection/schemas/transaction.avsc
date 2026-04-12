@@ -1,0 +1,22 @@
+{
+  "type": "record",
+  "name": "Transaction",
+  "namespace": "com.frauddetection",
+  "doc": "Schema for e-commerce transactions",
+  "fields": [
+    {"name": "transaction_id", "type": "string", "doc": "Unique transaction identifier"},
+    {"name": "user_id", "type": "string", "doc": "User identifier"},
+    {"name": "amount", "type": "double", "doc": "Transaction amount"},
+    {"name": "currency", "type": "string", "default": "USD", "doc": "Currency code"},
+    {"name": "timestamp", "type": {"type": "long", "logicalType": "timestamp-millis"}, "doc": "Transaction timestamp"},
+    {"name": "merchant", "type": "string", "doc": "Merchant name"},
+    {"name": "location", "type": "string", "doc": "Transaction location"},
+    {"name": "payment_method", "type": {
+      "type": "enum",
+      "name": "PaymentMethod",
+      "symbols": ["CREDIT_CARD", "DEBIT_CARD", "PAYPAL", "BANK_TRANSFER"]
+    }, "doc": "Payment method used"},
+    {"name": "ip_address", "type": ["null", "string"], "default": null, "doc": "IP address of transaction"},
+    {"name": "device_id", "type": ["null", "string"], "default": null, "doc": "Device identifier"}
+  ]
+}

@@ -1,0 +1,259 @@
+# 🚨 Fraud Detection System
+
+A real-time fraud detection system built with Apache Kafka, featuring dual-format messaging (Avro + JSON), stateful stream processing, and a rich terminal-based monitoring UI.
+
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Quick Start](#quick-start)
+- [Usage](#usage)
+- [System Components](#system-components)
+- [Fraud Detection Rules](#fraud-detection-rules)
+- [Configuration](#configuration)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+
+## 🎯 Overview
+
+The Fraud Detection System processes e-commerce transactions in real-time, applying multiple fraud detection rules to identify suspicious activities. It uses Kafka for reliable message streaming, Avro for efficient serialization, and provides both real-time alerts and comprehensive audit logging.
+
+### Key Capabilities
+
+- **Real-time Processing**: Sub-second fraud detection latency
+- **Scalable Architecture**: Multi-partition Kafka topics with parallel consumers
+- **Dual Format Support**: Avro binary for production efficiency, JSON for human readability
+- **Rich Monitoring**: Terminal-based UI with live statistics and alert dashboard
+- **Compliance Ready**: Complete audit trail logging in JSONL format
+- **Stateful Processing**: In-memory caching of user profiles and transaction history
+- **Fault Tolerant**: Failed message storage and recovery mechanisms
+
+## ✨ Features
+
+### Core Features
+
+- 🚀 Real-time transaction processing with configurable batch sizes
+- 🔍 5-tier fraud detection rules engine with severity scoring
+- 👤 User profile management with dynamic risk scoring
+- 📊 Live monitoring dashboard built with Rich library
+- 📝 Comprehensive audit logging (JSONL format with daily rotation)
+- 🔄 Stateful stream processing with in-memory user profile cache
+- 🛡️ Schema validation using Avro schemas
+- 🐳 Fully dockerized Kafka infrastructure with Schema Registry and Kafka UI
+
+### Technical Features
+
+- **Multi-process architecture**: Separate processes for producers, consumers, and monitors
+- **Idempotent producers**: Exactly-once semantics with transactional guarantees
+- **Compacted topics**: User profiles stored with log compaction for latest state
+- **Failed message recovery**: Automatic storage of failed messages for later reprocessing
+- **Graceful shutdown**: Signal handlers for clean process termination
+- **Comprehensive logging**: Loguru with rotation, compression, and audit log separation
+
+## 🏗 Architecture
+
+### System Architecture Diagram
+
+![System Architecture Diagram](docs/diagrams/system-architecture-diagram.png)
+
+### Data Flow Sequence Diagram
+
+![Data Flow Sequence Diagram](docs/diagrams/data-flow-sequence-diagram.png)
+
+### Fraud Detection Rules Flow
+
+![Fraud Detection Rules Flow](docs/diagrams/fraud-detection-rules-flow.png)
+
+### Component Interaction Diagram
+
+![Component Interaction Diagram](docs/diagrams/component-interaction-diagram.png)
+
+### State Management Diagram
+
+![State Management Diagram](docs/diagrams/state-management-diagram.png)
+
+### Deployment Architecture
+
+![Deployment Architecture](docs/diagrams/deployment-architecture-diagram.png)
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Python 3.9 or higher
+- [uv](https://github.com/astral-sh/uv) for dependency management
+- 4GB RAM minimum available
+
+### Setup Steps
+
+```bash
+# 1. Clone the repository
+git clone <repository-url>
+cd fraud-detection-system
+
+# 2. Install dependencies using uv
+uv sync
+
+# 3. Start Kafka infrastructure (broker, schema registry, UI)
+docker-compose up -d
+
+# 4. Wait for services to be ready (approximately 30 seconds)
+sleep 30
+
+# 5. Create Kafka topics with proper configurations
+python -m fraud_detection.main setup
+
+# 6. Run the complete system (all components)
+python -m fraud_detection.main run --mode all
+
+### 📁 Project Structure
+
+fraud-detection-system/
+├── src/
+│   └── fraud_detection/
+│       ├── __init__.py                    # Package initialization, exports settings and logger
+│       ├── main.py                        # CLI entry point with Click, multiprocessing orchestration
+│       ├── config/
+│       │   ├── settings.py                # Pydantic Settings with .env loading, topic names, thresholds
+│       │   └── logger_config.py           # Loguru configuration with rotation, compression, audit log
+│       ├── models/
+│       │   └── data_models.py             # Pydantic models: Transaction, UserProfile, FraudAlert
+│       ├── producers/
+│       │   ├── transaction_producer.py    # Dual-format transaction generator (Avro + JSON)
+│       │   └── user_profile_producer.py   # User profile generator with risk scoring
+│       ├── consumers/
+│       │   ├── fraud_detector.py          # Main processing consumer with rules engine integration
+│       │   ├── alert_consumer.py          # Real-time Rich UI alert display with statistics
+│       │   └── audit_consumer.py          # Compliance audit logger writing to JSONL files
+│       ├── processors/
+│       │   ├── enrichment_processor.py    # Transaction enrichment with user profile data
+│       │   └── fraud_rules_engine.py      # 5-rule fraud detection engine with severity scoring
+│       ├── monitoring/
+│       │   └── kafka_monitor.py           # Kafka cluster health monitor with Rich UI
+│       ├── schemas/
+│       │   ├── transaction.avsc           # Avro schema: transaction_id, user_id, amount, merchant, etc.
+│       │   ├── user_profile.avsc          # Avro schema: user_id, email, risk_score, preferences, etc.
+│       │   └── fraud_alert.avsc           # Avro schema: alert_id, transaction_id, severity, type, etc.
+│       └── utils/
+│           ├── avro_serializer.py         # FastAvro wrapper with schema validation
+│           └── helpers.py                 # JSON serialization, UUID generation, currency formatting
+├── scripts/
+│   └── setup_topics.sh                    # Bash script creating all Kafka topics with configurations
+├── tests/
+│   ├── test_producers.py                  # Unit tests for transaction and profile producers
+│   ├── test_consumers.py                  # Unit tests for fraud detector and alert consumer
+│   ├── test_rules_engine.py               # Unit tests for all 5 fraud detection rules
+│   ├── test_models.py                     # Pydantic model validation tests
+│   └── test_integration.py                # End-to-end integration tests
+├── docs/
+│   ├── diagrams/                          # Architecture and flow diagrams
+│   │   ├── system-architecture-diagram.png
+│   │   ├── data-flow-sequence-diagram.png
+│   │   ├── fraud-detection-rules-flow.png
+│   │   ├── component-interaction-diagram.png
+│   │   ├── state-management-diagram.png
+│   │   └── deployment-architecture.png
+│   └── screenshots/                       # UI and monitoring screenshots
+│       ├── brokers.png
+│       ├── consumers.png
+│       ├── fraud-alerts.png
+│       ├── monitor.png
+│       ├── test.png
+│       ├── topic.png
+│       └── transactions.png
+├── logs/                                  # Application logs directory (created at runtime)
+│   ├── app.log                            # Main application log with rotation
+│   ├── error.log                          # Error-only log with extended retention
+│   └── audit/                             # Audit logs in JSONL format
+│       └── YYYY-MM-DD.jsonl               # Daily audit log files
+├── failed_messages/                       # Failed message storage for recovery
+├── docker-compose.yml                     # Kafka, Schema Registry, Kafka UI services
+├── pyproject.toml                         # Project metadata and dependencies (uv compatible)
+├── .env                                   # Environment configuration (create from template)
+├── .gitignore                             # Git ignore rules
+├── test_consumer.py                       # Simple test consumer for verification
+├── LICENSE                                # MIT License
+└── README.md                              # This file
+
+### 🧪 Testing
+Running Tests
+
+# Run all tests with verbose output
+pytest tests/ -v
+
+# Run with coverage report
+pytest tests/ -v --cov=src/fraud_detection --cov-report=html
+
+# Run specific test file
+pytest tests/test_rules_engine.py -v
+
+# Run integration tests only
+pytest tests/test_integration.py -v
+
+![test results](test.png)
+
+###🔍 Troubleshooting
+Common Issues and Solutions
+Kafka broker not starting:
+# Check Docker container status
+docker ps -a
+
+# View Kafka logs
+docker logs fraud-detection-system-kafka-1
+
+# Complete reset
+docker compose down -v
+docker compose up -d
+
+Topics not created:
+# Verify setup script ran correctly
+python -m fraud_detection.main setup
+
+# Manually create topics
+./scripts/setup_topics.sh
+
+# Check if topics exist
+docker exec fraud-detection-system-kafka-1 /opt/kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+Consumer lag (messages piling up):
+# Check consumer group status
+docker exec fraud-detection-system-kafka-1 /opt/kafka/bin/kafka-consumer-groups.sh \
+  --bootstrap-server localhost:9092 \
+  --group fraud-detector-group \
+  --describe
+
+# Reset consumer group offset to latest
+docker exec fraud-detection-system-kafka-1 /opt/kafka/bin/kafka-consumer-groups.sh \
+  --bootstrap-server localhost:9092 \
+  --group fraud-detector-group \
+  --topic transactions \
+  --reset-offsets --to-latest \
+  --execute
+
+Schema Registry connection issues:
+# Verify Schema Registry is running
+curl http://localhost:8081/subjects
+
+# Check registered schemas
+curl http://localhost:8081/subjects/transactions-value/versions
+
+Logs not appearing:
+# Check logs directory permissions
+ls -la logs/
+
+# View real-time logs
+tail -f logs/app.log
+
+# Check audit logs
+cat logs/audit/$(date +%Y-%m-%d).jsonl | jq .
+
+Port conflicts:
+# Check if ports are in use
+lsof -i :9092  # Kafka
+lsof -i :8080  # Kafka UI
+lsof -i :8081  # Schema Registry
+

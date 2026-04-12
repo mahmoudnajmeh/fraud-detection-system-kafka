@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "name": "FraudAlert",
+  "namespace": "com.frauddetection",
+  "doc": "Fraud alert notification",
+  "fields": [
+    {"name": "alert_id", "type": "string", "doc": "Unique alert identifier"},
+    {"name": "transaction_id", "type": "string", "doc": "Associated transaction ID"},
+    {"name": "user_id", "type": "string", "doc": "User identifier"},
+    {"name": "alert_type", "type": {
+      "type": "enum",
+      "name": "AlertType",
+      "symbols": ["HIGH_AMOUNT", "RAPID_SUCCESSIVE", "UNUSUAL_LOCATION", "RISKY_USER", "PATTERN_MATCH"]
+    }, "doc": "Type of fraud alert"},
+    {"name": "severity", "type": {
+      "type": "enum",
+      "name": "Severity",
+      "symbols": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+    }, "doc": "Alert severity level"},
+    {"name": "description", "type": "string", "doc": "Detailed alert description"},
+    {"name": "timestamp", "type": {"type": "long", "logicalType": "timestamp-millis"}, "doc": "Alert timestamp"},
+    {"name": "transaction_details", "type": ["null", "string"], "default": null, "doc": "Additional transaction details"}
+  ]
+}

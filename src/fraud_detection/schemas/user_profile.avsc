@@ -1,0 +1,18 @@
+{
+  "type": "record",
+  "name": "UserProfile",
+  "namespace": "com.frauddetection",
+  "doc": "User profile information",
+  "fields": [
+    {"name": "user_id", "type": "string", "doc": "User identifier"},
+    {"name": "email", "type": "string", "doc": "User email address"},
+    {"name": "full_name", "type": "string", "doc": "User full name"},
+    {"name": "age", "type": "int", "doc": "User age"},
+    {"name": "country", "type": "string", "doc": "User country"},
+    {"name": "risk_score", "type": {"type": "int", "default": 0}, "doc": "User risk score (0-100)"},
+    {"name": "account_created", "type": {"type": "long", "logicalType": "timestamp-millis"}, "doc": "Account creation timestamp"},
+    {"name": "verified", "type": "boolean", "default": false, "doc": "Whether user is verified"},
+    {"name": "avg_transaction_amount", "type": ["null", "double"], "default": null, "doc": "Average transaction amount"},
+    {"name": "preferred_payment_methods", "type": {"type": "array", "items": "string"}, "default": [], "doc": "Preferred payment methods"}
+  ]
+}
