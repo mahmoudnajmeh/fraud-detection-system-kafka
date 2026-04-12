@@ -110,66 +110,75 @@ python -m fraud_detection.main setup
 # 6. Run the complete system (all components)
 python -m fraud_detection.main run --mode all
 
-### 📁 Project Structure
+## 📁 Project Structure
 
-fraud-detection-system/
+```text
+FRAUD-DETECTION-SYSTEM/
+├── .pytest_cache/
+├── .venv/
+├── failed_messages/
+├── htmlcov/
+├── logs/
+│   ├── audit/
+│   ├── app.log
+│   ├── app..log.gz
+│   ├── audit.log
+│   ├── audit..log.gz
+│   └── error.log
+├── scripts/
+│   └── setup_topics.sh
 ├── src/
 │   └── fraud_detection/
-│       ├── __init__.py                    
-│       ├── main.py                        
+│       ├── __pycache__/
+│       ├── __init__.py
+│       ├── main.py
 │       ├── config/
-│       │   ├── settings.py                
-│       │   └── logger_config.py           
-│       ├── models/
-│       │   └── data_models.py            
-│       ├── producers/
-│       │   ├── transaction_producer.py    
-│       │   └── user_profile_producer.py  
+│       │   ├── settings.py
+│       │   └── logger_config.py
 │       ├── consumers/
-│       │   ├── fraud_detector.py          
-│       │   ├── alert_consumer.py         
-│       │   └── audit_consumer.py         
-│       ├── processors/
-│       │   ├── enrichment_processor.py   
-│       │   └── fraud_rules_engine.py      
+│       │   ├── alert_consumer.py
+│       │   ├── audit_consumer.py
+│       │   └── fraud_detector.py
+│       ├── models/
+│       │   └── data_models.py
 │       ├── monitoring/
-│       │   └── kafka_monitor.py           
+│       │   └── kafka_monitor.py
+│       ├── processors/
+│       │   ├── enrichment_processor.py
+│       │   └── fraud_rules_engine.py
+│       ├── producers/
+│       │   ├── transaction_producer.py
+│       │   └── user_profile_producer.py
 │       ├── schemas/
-│       │   ├── transaction.avsc           
-│       │   ├── user_profile.avsc         
-│       │   └── fraud_alert.avsc          
+│       │   ├── fraud_alert.avsc
+│       │   ├── transaction.avsc
+│       │   └── user_profile.avsc
 │       └── utils/
-│           ├── avro_serializer.py         
-│           └── helpers.py                 
-├── scripts/
-│   └── setup_topics.sh                   
+│           ├── avro_serializer.py
+│           └── helpers.py
 ├── tests/
-│   ├── test_producers.py                 
-│   ├── test_consumers.py                  
-│   ├── test_rules_engine.py              
-│   ├── test_models.py                   
-│   └── test_integration.py             
-├── docs/
-│   ├── diagrams/                          
-│   │   ├── system-architecture-diagram.png
-│   │   ├── data-flow-sequence-diagram.png
-│   │   ├── fraud-detection-rules-flow.png
-│   │   ├── component-interaction-diagram.png
-│   │   ├── state-management-diagram.png
-│   │   └── deployment-architecture.png
-│   └── screenshots/                            
-├── logs/                                  
-│   ├── app.log                           
-│   ├── error.log                          
-│   └── audit/                            
-│       └── YYYY-MM-DD.jsonl            
-├── failed_messages/                       
-├── docker-compose.yml                     
-├── pyproject.toml                        
-├── .env                                   
-├── .gitignore                            
-├── test_consumer.py                                                   
-└── README.md                          
+│   ├── __pycache__/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── test_alert_consumer_mock.py
+│   ├── test_audit_consumer_mock.py
+│   ├── test_avro_serializer.py
+│   ├── test_enrichment_processor.py
+│   ├── test_fraud_detection.py
+│   ├── test_fraud_detector_mock.py
+│   ├── test_fraud_rules_engine_more.py
+│   ├── test_helpers.py
+│   ├── test_producers.py
+│   └── test_user_profile_producer_mock.py
+├── .env
+├── .gitignore
+├── .python-version
+├── docker-compose.yml
+├── pyproject.toml
+├── read_alerts.py
+├── README.md
+└── uv.lock
+```                      
 
 ### 🧪 Testing
 Running Tests
