@@ -177,8 +177,7 @@ FRAUD-DETECTION-SYSTEM/
 ├── pyproject.toml
 ├── read_alerts.py
 ├── README.md
-└── uv.lock
-```                      
+└── uv.lock                     
 
 ### 🧪 Testing
 Running Tests
@@ -192,10 +191,6 @@ pytest tests/ -v --cov=src/fraud_detection --cov-report=html
 # Run specific test file
 pytest tests/test_rules_engine.py -v
 
-# Run integration tests only
-pytest tests/test_integration.py -v
-
-<img width="1505" height="515" alt="Image" src="https://github.com/user-attachments/assets/750718a8-6534-4c56-8df5-c9c5f05ab0ce" />
 
 ###🔍 Troubleshooting
 Common Issues and Solutions
