@@ -4,8 +4,6 @@ A real-time fraud detection system built with Apache Kafka, featuring dual-forma
 
 ## 📋 Table of Contents
 
-## 📋 Table of Contents
-
 - [Overview](#overview)
 - [Features](#features)
 - [Architecture](#architecture)
