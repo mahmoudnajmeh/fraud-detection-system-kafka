@@ -171,37 +171,37 @@ FRAUD-DETECTION-SYSTEM/
 ├── README.md
 └── uv.lock                
 
-###🔍 Troubleshooting
+🔍 Troubleshooting
 Common Issues and Solutions
 Kafka broker not starting:
 # Check Docker container status
 docker ps -a
 
-# View Kafka logs
+View Kafka logs
 docker logs fraud-detection-system-kafka-1
 
-# Complete reset
+Complete reset
 docker compose down -v
 docker compose up -d
 
 Topics not created:
-# Verify setup script ran correctly
+Verify setup script ran correctly
 python -m fraud_detection.main setup
 
-# Manually create topics
+Manually create topics
 ./scripts/setup_topics.sh
 
-# Check if topics exist
+Check if topics exist
 docker exec fraud-detection-system-kafka-1 /opt/kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 
 Consumer lag (messages piling up):
-# Check consumer group status
+Check consumer group status
 docker exec fraud-detection-system-kafka-1 /opt/kafka/bin/kafka-consumer-groups.sh \
   --bootstrap-server localhost:9092 \
   --group fraud-detector-group \
   --describe
 
-# Reset consumer group offset to latest
+Reset consumer group offset to latest
 docker exec fraud-detection-system-kafka-1 /opt/kafka/bin/kafka-consumer-groups.sh \
   --bootstrap-server localhost:9092 \
   --group fraud-detector-group \
@@ -210,24 +210,24 @@ docker exec fraud-detection-system-kafka-1 /opt/kafka/bin/kafka-consumer-groups.
   --execute
 
 Schema Registry connection issues:
-# Verify Schema Registry is running
+Verify Schema Registry is running
 curl http://localhost:8081/subjects
 
-# Check registered schemas
+Check registered schemas
 curl http://localhost:8081/subjects/transactions-value/versions
 
 Logs not appearing:
-# Check logs directory permissions
+Check logs directory permissions
 ls -la logs/
 
-# View real-time logs
+View real-time logs
 tail -f logs/app.log
 
-# Check audit logs
+Check audit logs
 cat logs/audit/$(date +%Y-%m-%d).jsonl | jq .
 
 Port conflicts:
-# Check if ports are in use
+Check if ports are in use
 lsof -i :9092  # Kafka
 lsof -i :8080  # Kafka UI
 lsof -i :8081  # Schema Registry
