@@ -104,7 +104,7 @@ python -m fraud_detection.main run --mode all
 
 ## 📁 Project Structure
 
-```text
+
 FRAUD-DETECTION-SYSTEM/
 ├── .pytest_cache/
 ├── .venv/
