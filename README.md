@@ -85,7 +85,7 @@ The Fraud Detection System processes e-commerce transactions in real-time, apply
 ```bash
 # 1. Clone the repository
 git clone https://github.com/MN10101/fraud-detection-system-kafak.git
-cd fraud-detection-system-kafak
+cd fraud-detection-system-kafka
 
 # 2. Install dependencies using uv
 uv sync
