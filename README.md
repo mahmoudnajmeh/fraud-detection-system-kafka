@@ -240,6 +240,28 @@ lsof -i :9092  # Kafka
 lsof -i :8080  # Kafka UI
 lsof -i :8081  # Schema Registry
 ```
+### Audit Log Verification
+
+After running the system, verify the Delta Lake-style audit logs:
+
+```bash
+# Check fraud audit trail
+wc -l logs/fraud_audit.log
+
+# Verify GDPR deletion tracking
+cat logs/gdpr_deletions.log
+
+# View real-time metrics
+tail -f logs/verification.log
+
+# Verify audit files are being written
+tail -f logs/fraud_audit.log
+tail -f logs/gdpr_deletions.log
+tail -f logs/verification.log
+
+# Check GDPR deletion was triggered
+grep "GDPR_ERASURE" logs/gdpr_deletions.log
+```
 
 ## 🧪 Testing
 
