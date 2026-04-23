@@ -32,10 +32,10 @@ The Fraud Detection System processes e-commerce transactions in real-time, apply
 - 👤 User profile management with dynamic risk scoring
 - 📊 Live monitoring dashboard built with Rich library
 - 📝 Comprehensive audit logging with three-tier approach:
-  - `fraud_audit.log` - Transaction-level audit trail (like Delta Lake `_delta_log`)
-  - `gdpr_deletions.log` - GDPR erasure tracking with VACUUM requirements
-  - `verification.log` - Real-time metrics validation (row count style assertions)
-  - Daily rotation with 365-day retention for compliance
+  - `fraud_audit.log` - Transaction-level audit trail (365-day retention)
+  - `gdpr_deletions.log` - GDPR erasure tracking with 7-year retention (2555 days)
+  - `verification.log` - Real-time metrics validation (90-day retention)
+  - Daily rotation with compression for all logs
 - 🔄 Stateful stream processing with in-memory user profile cache
 - 🛡️ Schema validation using Avro schemas
 - 🐳 Fully dockerized Kafka infrastructure with Schema Registry and Kafka UI
