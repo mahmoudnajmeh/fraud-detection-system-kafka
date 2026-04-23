@@ -91,7 +91,7 @@ cd fraud-detection-system-kafka
 uv sync
 
 # 3. Start Kafka infrastructure (broker, schema registry, UI)
-docker-compose up -d
+docker compose up -d
 
 # 4. Wait for services to be ready (approximately 30 seconds)
 sleep 30
