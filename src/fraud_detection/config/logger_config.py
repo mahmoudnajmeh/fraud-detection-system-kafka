@@ -55,6 +55,36 @@ def setup_logger() -> logger:
             filter=lambda record: "audit" in record["extra"]
         )
     
+    logger.add(
+        settings.LOGS_DIR / "fraud_audit.log",
+        format="{time} | {message}",
+        level="INFO",
+        rotation="1 day",
+        retention="365 days",
+        compression="gz",
+        filter=lambda record: "fraud_audit" in record["extra"]
+    )
+    
+    logger.add(
+        settings.LOGS_DIR / "gdpr_deletions.log",
+        format="{time} | {message}",
+        level="INFO",
+        rotation="1 month",
+        retention="2555 days",
+        compression="gz",
+        filter=lambda record: "deletion" in record["extra"]
+    )
+    
+    logger.add(
+        settings.LOGS_DIR / "verification.log",
+        format="{time} | {message}",
+        level="INFO",
+        rotation="1 week",
+        retention="90 days",
+        compression="gz",
+        filter=lambda record: "verify" in record["extra"]
+    )
+    
     return logger
 
 logger = setup_logger()

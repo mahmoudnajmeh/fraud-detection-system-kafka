@@ -67,6 +67,19 @@ def run(mode):
     def run_fraud_detector():
         logger.info("STARTING: Fraud Detector")
         detector = FraudDetector()
+        
+        test_user_id = "user_12345"
+        logger.info(f"Creating base state for user {test_user_id}")
+        
+        time.sleep(5)
+        
+        logger.info(f"Processing transactions for user {test_user_id}")
+        
+        time.sleep(10)
+        
+        logger.info(f"GDPR deleting user {test_user_id}")
+        detector.gdpr_delete_user(test_user_id)
+        
         detector.run()
     
     def run_alert_consumer():
@@ -79,25 +92,21 @@ def run(mode):
         
         processes = []
         
-        # Start profile producer first
         p1 = Process(target=run_profile_producer)
         p1.start()
         processes.append(p1)
         time.sleep(2)
         
-        # Start fraud detector
         p2 = Process(target=run_fraud_detector)
         p2.start()
         processes.append(p2)
         time.sleep(2)
         
-        # Start alert consumer
         p3 = Process(target=run_alert_consumer)
         p3.start()
         processes.append(p3)
         time.sleep(2)
         
-        # Start transaction producer LAST
         p4 = Process(target=run_producer)
         p4.start()
         processes.append(p4)

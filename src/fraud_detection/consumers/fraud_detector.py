@@ -94,6 +94,19 @@ class FraudDetector:
             
             self.metrics['transactions_processed'] += 1
             
+            if alerts:
+                for alert in alerts:
+                    logger.bind(fraud_audit=True).info(
+                        f"AUDIT | action=FRAUD_ALERT | transaction_id={transaction.transaction_id} | "
+                        f"user_id={transaction.user_id} | alert_type={alert.alert_type} | "
+                        f"severity={alert.severity} | amount={transaction.amount}"
+                    )
+            
+            logger.bind(verify=True).info(
+                f"VERIFY | transactions_processed={self.metrics['transactions_processed']} | "
+                f"alerts_generated={self.metrics['alerts_generated']} | errors={self.metrics['errors']}"
+            )
+            
             return alerts
             
         except Exception as e:
@@ -126,7 +139,6 @@ class FraudDetector:
             try:
                 alert_dict = alert.to_avro_dict()
                 
-                # 1. Send Avro (production format)
                 avro_bytes = self.alert_serializer.serialize_one(alert_dict)
                 
                 producer.produce(
@@ -136,7 +148,6 @@ class FraudDetector:
                     callback=self.delivery_report
                 )
                 
-                # 2. ALSO send JSON (readable for Kafka UI)
                 json_dict = alert_dict.copy()
                 json_dict['timestamp'] = alert.timestamp.isoformat()
                 json_bytes = json.dumps(json_dict, default=str).encode('utf-8')
@@ -153,6 +164,29 @@ class FraudDetector:
                 
             except Exception as e:
                 logger.error(f"Failed to send alert: {e}")
+    
+    def gdpr_delete_user(self, user_id: str):
+        """GDPR erasure - delete all data for a user."""
+        with self.state_lock:
+            before_transactions = len(self.user_transactions.get(user_id, []))
+            before_profile = 1 if user_id in self.user_profiles else 0
+            
+            logger.bind(deletion=True).info(
+                f"DELETION | action=GDPR_ERASURE_REQUEST | user_id={user_id} | "
+                f"before_transactions={before_transactions} | before_profile={before_profile} | "
+                f"timestamp={datetime.utcnow().isoformat()}"
+            )
+            
+            if user_id in self.user_transactions:
+                del self.user_transactions[user_id]
+            
+            if user_id in self.user_profiles:
+                del self.user_profiles[user_id]
+            
+            logger.bind(deletion=True).info(
+                f"DELETION | action=GDPR_ERASURE_COMPLETE | user_id={user_id} | "
+                f"requires_vacuum=True | note='Old data still in logs until retention period expires'"
+            )
     
     def delivery_report(self, err, msg):
         """Callback for alert delivery."""
@@ -181,7 +215,6 @@ class FraudDetector:
         }
         alert_producer = Producer(alert_producer_config)
         
-        # Ensure readable topic exists
         from confluent_kafka.admin import AdminClient, NewTopic
         admin_client = AdminClient({'bootstrap.servers': settings.KAFKA_BOOTSTRAP_SERVERS})
         topic = NewTopic("fraud-alerts-readable", num_partitions=3, replication_factor=1)
