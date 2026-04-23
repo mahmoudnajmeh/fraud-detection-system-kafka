@@ -147,6 +147,29 @@ def run(mode):
     elif mode == "monitor":
         run_alert_consumer()
 
+@cli.command()
+def test_time_travel():
+    """Test Delta Lake time travel."""
+    from fraud_detection.consumers.fraud_detector import FraudDetector
+    
+    detector = FraudDetector()
+    
+    logger.info("=== Time Travel Demo ===")
+    
+    logger.info("1. Showing table history:")
+    history = detector.get_table_history()
+    history.show()
+    
+    logger.info("2. Reading version 0:")
+    df_v0 = detector.read_transaction_history("user_12345", version=0)
+    logger.info(f"Version 0 has {df_v0.count()} rows")
+    
+    logger.info("3. Reading current version:")
+    df_current = detector.read_transaction_history("user_12345")
+    logger.info(f"Current version has {df_current.count()} rows")
+    
+    logger.info("Time travel demo complete")
+
 
 if __name__ == "__main__":
     cli()

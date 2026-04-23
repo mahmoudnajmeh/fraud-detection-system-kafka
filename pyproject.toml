@@ -26,6 +26,7 @@ dependencies = [
     "certifi>=2026.2.25",
     "httpx>=0.28.1",
     "authlib>=1.6.9",
+    "delta-spark>=4.0.1",
 ]
 
 [project.optional-dependencies]
