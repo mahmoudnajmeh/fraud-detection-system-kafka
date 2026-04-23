@@ -36,6 +36,12 @@ The Fraud Detection System processes e-commerce transactions in real-time, apply
   - `gdpr_deletions.log` - GDPR erasure tracking with 7-year retention (2555 days)
   - `verification.log` - Real-time metrics validation (90-day retention)
   - Daily rotation with compression for all logs
+- ⏱️ **Delta Lake Time Travel & Versioning**:
+  - `versionAsOf` - Query historical data snapshots by version number
+  - `timestampAsOf` - Query data as it existed at any point in time
+  - `history()` - Full version log with operation metadata
+  - `VACUUM` - Physical deletion of old Parquet files for GDPR compliance
+  - 300+ versions tracked with complete audit trail
 - 🔄 Stateful stream processing with in-memory user profile cache
 - 🛡️ Schema validation using Avro schemas
 - 🐳 Fully dockerized Kafka infrastructure with Schema Registry and Kafka UI
