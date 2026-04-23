@@ -31,7 +31,11 @@ The Fraud Detection System processes e-commerce transactions in real-time, apply
 - 🔍 5-tier fraud detection rules engine with severity scoring
 - 👤 User profile management with dynamic risk scoring
 - 📊 Live monitoring dashboard built with Rich library
-- 📝 Comprehensive audit logging (JSONL format with daily rotation)
+- 📝 Comprehensive audit logging with three-tier approach:
+  - `fraud_audit.log` - Transaction-level audit trail (like Delta Lake `_delta_log`)
+  - `gdpr_deletions.log` - GDPR erasure tracking with VACUUM requirements
+  - `verification.log` - Real-time metrics validation (row count style assertions)
+  - Daily rotation with 365-day retention for compliance
 - 🔄 Stateful stream processing with in-memory user profile cache
 - 🛡️ Schema validation using Avro schemas
 - 🐳 Fully dockerized Kafka infrastructure with Schema Registry and Kafka UI
@@ -111,12 +115,16 @@ FRAUD-DETECTION-SYSTEM/
 ├── failed_messages/
 ├── htmlcov/
 ├── logs/
-│   ├── audit/
-│   ├── app.log
-│   ├── app..log.gz
-│   ├── audit.log
-│   ├── audit..log.gz
-│   └── error.log
+│   ├── audit/                
+│   ├── app.log                
+│   ├── app.*.log.gz           
+│   ├── audit.log              
+│   ├── audit.*.log.gz         
+│   ├── error.log              
+│   ├── fraud_audit.log        
+│   ├── gdpr_deletions.log    
+│   ├── verification.log       
+│   └── error.*.log.gz         
 ├── scripts/
 │   └── setup_topics.sh
 ├── src/
